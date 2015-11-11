@@ -17,6 +17,7 @@ PAR.d0=10;      %Приследуемое значение
 PAR.d0d=10;     %дельта в законе управления 5.5
 PAR.Sgrad=1;    %Гамма в законе управления
 PAR.Hspeed=0.3; %Эта*
+PAR.H=[0,0,1];  %Вектор h
 
 PAR.Hmax=40;    %H+
 PAR.Hmin=20;    %H-
@@ -45,9 +46,14 @@ Zm(Zm<0)=NaN;
 %Zm=max(Zm,max(Zms1,Zms2))
 
 global field
+field.l=1;
 field.X=Xm;
 field.Y=Ym;
 field.Z=Zm;
+field.Xm={Xm};
+field.Ym={Ym};
+field.Zm={Zm};
+
 field.Xsize=[min(min(Xm)),max(max(Xm))];
 field.Ysize=[min(min(Ym)),max(max(Ym))];
 field.Zsize=[min(min(Zm)),max(max(Zm))];

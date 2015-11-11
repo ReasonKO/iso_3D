@@ -19,12 +19,12 @@ Xz=X(abs(Z-z)<dzmax);
 Yz=Y(abs(Z-z)<dzmax);
 
 D=sqrt((Xz-x).^2+(Yz-y).^2);
-[d,I]=min(D);
+[d,Ind]=min(D);
 if isempty(d)
     d=inf;
 end
 if (d<Dmin)
-    Iopt=I;
+    Iopt=Ind;
     Kmin=k;
     Dmin=d;
 end
@@ -36,7 +36,7 @@ Zz=Z(abs(Z-z)<dzmax);
 Xz=X(abs(Z-z)<dzmax);
 Yz=Y(abs(Z-z)<dzmax);
 d=Dmin;
-I=Iopt;
+Ind=Iopt;
 
 %% графика ----------------------------------------------------------------
     
@@ -65,7 +65,7 @@ if isequal('on',get(fig.layer.figH,'Visible'))
         set(fig.layer.fieldi{i},'xdata',Xzi,'ydata',Yzi);
     end
     set(fig.layer.robot,'xdata',x,'ydata',y);
-    set(fig.layer.line,'xdata',[x,Xz(I)],'ydata',[y,Yz(I)]);
+    set(fig.layer.line,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
     %UpPlotData(fig.trace2,x,y);
 end
 
@@ -86,7 +86,7 @@ end
 if isequal('on',get(fig.layer2.figH,'Visible'))
     set(fig.layer2.field2,'xdata',Xz,'ydata',Yz);
     set(fig.layer2.robot2,'xdata',x,'ydata',y);
-    set(fig.layer2.line2,'xdata',[x,Xz(I)],'ydata',[y,Yz(I)]);
+    set(fig.layer2.line2,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
     UpPlotData(fig.trace3,x,y);
 end    
 end
@@ -96,7 +96,7 @@ end
 
 if ~isfield(fig,'trace')
     figure(3000);
-    fig.trace=plot3(Xz(I),Yz(I),z,'B','linewidth',3);    
+    fig.trace=plot3(Xz(Ind),Yz(Ind),z,'B','linewidth',3);    
 end
-UpPlotData(fig.trace,Xz(I),Yz(I),z);
+UpPlotData(fig.trace,Xz(Ind),Yz(Ind),z);
 end
