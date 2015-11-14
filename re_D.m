@@ -1,46 +1,69 @@
-function d=re_D(s)
+function d=re_D(R)
 %s=[50,79,20];
-dzmax=2;
-x=s(1);
-y=s(2);
-z=s(3);
-Kmin=1;
+global PAR field
+dzmax=PAR.dHmax*5;
+x=R(1);
+y=R(2);
+z=R(3);
+
+Kopt=1;
 Dmin=inf;
 Iopt=1;
-global field
+H=PAR.H/norm(PAR.H);
+%layerf=@(A,B,C,s)and(and(...
+%        abs((A-s(1))*H(1)+(B-s(2))*H(2))<PAR.dHmax,...
+%        abs((B-s(2))*H(2)+(C-s(3))*H(3))<PAR.dHmax),...
+%        abs((C-s(3))*H(3)+(A-s(1))*H(1))<PAR.dHmax);
+layerf=@(A,B,C,s)(abs((A-s(1))*H(1)+(B-s(2))*H(2)+(C-s(3))*H(3))<PAR.dHmax);
+%% перебор слоев
 for k=1:field.l
+    Z_k=field.Zm{k};
+    X_k=field.Xm{k};
+    Y_k=field.Ym{k};
+    
+    layer=layerf(X_k,Y_k,Z_k,R);
+    %abs(Z_k-z)<dzmax;
+    
+    Zz_k=Z_k(layer);
+    Xz_k=X_k(layer);
+    Yz_k=Y_k(layer);
 
-Z=field.Zm{k};
-X=field.Xm{k};
-Y=field.Ym{k};
-
-Zz=Z(abs(Z-z)<dzmax);
-Xz=X(abs(Z-z)<dzmax);
-Yz=Y(abs(Z-z)<dzmax);
-
-D=sqrt((Xz-x).^2+(Yz-y).^2);
-[d,Ind]=min(D);
-if isempty(d)
-    d=inf;
+    D_k=sqrt((Xz_k-x).^2+(Yz_k-y).^2+(Zz_k-z).^2);
+    [d_k,Ind]=min(D_k);
+    if isempty(d_k)
+        d_k=inf;
+    end
+    if (d_k<Dmin)
+        Iopt=Ind;
+        Kopt=k;
+        Dmin=d_k;
+    end
 end
-if (d<Dmin)
-    Iopt=Ind;
-    Kmin=k;
-    Dmin=d;
-end
-end
-Z=field.Zm{Kmin};
-X=field.Xm{Kmin};
-Y=field.Ym{Kmin};
-Zz=Z(abs(Z-z)<dzmax);
-Xz=X(abs(Z-z)<dzmax);
-Yz=Y(abs(Z-z)<dzmax);
+%% Сбор информации с лучшего слоя
+Z=field.Zm{Kopt};
+X=field.Xm{Kopt};
+Y=field.Ym{Kopt};
+layer=layerf(X,Y,Z,R);
+Zz=Z(layer);
+Xz=X(layer);
+Yz=Y(layer);
 d=Dmin;
 Ind=Iopt;
-
 %% графика ----------------------------------------------------------------
-    
+if (d==inf)
+    return
+end
 global fig
+if ~isfield(fig,'trace')
+    figure(3000);
+    fig.layer3=plot3(Xz,Yz,Zz,'G.');      
+    fig.trace=plot3(Xz(Ind),Yz(Ind),Zz(Ind),'B','linewidth',3);  
+end
+addPlotData(fig.trace,Xz(Ind),Yz(Ind),Zz(Ind));
+set(fig.layer3,'xdata',Xz...
+     ,'ydata',Yz...
+     ,'zdata',Zz);
+ 
 if ~isfield(fig,'layer') || ~ishandle(fig.layer.figH)
     fig.layer.figH=figure(1001);
     clf
@@ -69,7 +92,7 @@ if isequal('on',get(fig.layer.figH,'Visible'))
     %UpPlotData(fig.trace2,x,y);
 end
 
-global Modul PAR
+global Modul
 if Modul.T<PAR.Tin
 if ~isfield(fig,'layer2') || ~ishandle(fig.layer2.figH)
     fig.layer2.figH=figure(1002);
@@ -79,7 +102,7 @@ if ~isfield(fig,'layer2') || ~ishandle(fig.layer2.figH)
     title('layer t<Tin');
     fig.trace3=plot(x,y,'B','linewidth',1.5);
     fig.layer2.field2=plot(0,0,'K.');
-    fig.layer2.robot2=plot(0,0,'R*');
+    fig.layer2.robot2=plot(0,0,'R*','linewidth',2);
     fig.layer2.line2=plot(0,0,'R-');
 end
 
@@ -87,16 +110,8 @@ if isequal('on',get(fig.layer2.figH,'Visible'))
     set(fig.layer2.field2,'xdata',Xz,'ydata',Yz);
     set(fig.layer2.robot2,'xdata',x,'ydata',y);
     set(fig.layer2.line2,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
-    UpPlotData(fig.trace3,x,y);
+    addPlotData(fig.trace3,x,y);
 end    
 end
-    %if Modul.T>PAR.Tin
-    %    break
-    %end
 
-if ~isfield(fig,'trace')
-    figure(3000);
-    fig.trace=plot3(Xz(Ind),Yz(Ind),z,'B','linewidth',3);    
-end
-UpPlotData(fig.trace,Xz(Ind),Yz(Ind),z);
 end

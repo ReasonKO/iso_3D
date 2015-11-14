@@ -11,9 +11,9 @@ Hspeed=PAR.Hspeed;
 Uh=PAR.Uh;    %u_h с чертой
 Um=PAR.Um;       %u с чертой
 
-h=R(3);
+h=PAR.re_h(R);
 d=re_D(R);
-d=myfilt(d);
+%d=myfilt(d);
 
 if isempty(rul_data)
     rul_data.h_old=h;   
@@ -88,16 +88,16 @@ if isempty(alg_info)
     title('h')
 end
 
-UpPlotData(alg_info.d_dot,d_dot);
-UpPlotData(alg_info.h_dot,h_dot);
-UpPlotData(alg_info.d_need,-xi(d-d0));
-UpPlotData(alg_info.h_need,eta);
+addPlotData(alg_info.d_dot,d_dot);
+addPlotData(alg_info.h_dot,h_dot);
+addPlotData(alg_info.d_need,-xi(d-d0));
+addPlotData(alg_info.h_need,eta);
 
-UpPlotData(alg_info.d,d);
-UpPlotData(alg_info.h,h);
-UpPlotData(alg_info.hmax,PAR.Hmax);
-UpPlotData(alg_info.hmin,PAR.Hmin);
-UpPlotData(alg_info.d0,d0);
+addPlotData(alg_info.d,d);
+addPlotData(alg_info.h,h);
+addPlotData(alg_info.hmax,PAR.Hmax);
+addPlotData(alg_info.hmin,PAR.Hmin);
+addPlotData(alg_info.d0,d0);
 
 
 end
