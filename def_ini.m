@@ -5,10 +5,12 @@ R=[0,0,0]; %[x,y,z]
 Rang_=[pi/2,0]; %Угло отклонения от Z и угол отклонения от X;
 %% Параметры алгоритма и моделирования
 global Modul
-Modul.dt=0.01; %Шаг дискретизации
+Modul.dt=0.02; %Шаг дискретизации
 Modul.T=0;     %текущее время 
+Modul.Tend=1000;     %текущее время 
 Modul.N=0;     %текущий шаг
 Modul.freq=1;  %Частота обновления картинки в секундах
+Modul.SaveExp=false;
 
 global PAR
 PAR.d0=20;      %Приследуемое значение
@@ -31,6 +33,11 @@ PAR.Um=1;       %u с чертой
 
 PAR.Tin=10;     %время процесса IN
 PAR.Smod=1;     %Начальное значение S+-
+
+PAR.run_dynamic='';
+PAR.green_iso=false;
+PAR.WipeTime=0;
+PAR.viz_graph=true;%false;
 %% ПОЛЕ-----------
 
 RB=50;

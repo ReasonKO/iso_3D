@@ -13,15 +13,15 @@ Um=PAR.Um;       %u с чертой
 
 h=PAR.re_h(R);
 d=re_D(R);
-%d=myfilt(d);
+d=myfilt(d);
 
 if isempty(rul_data)
     rul_data.h_old=h;   
     rul_data.d_old=d;   
 end
 
-h_dot=(h-rul_data.h_old)/Modul.dt;
-d_dot=(d-rul_data.d_old)/Modul.dt;
+h_dot=(h-rul_data.h_old)/Modul.dt/PAR.VSpeed;
+d_dot=(d-rul_data.d_old)/Modul.dt/PAR.VSpeed;
 rul_data.d_old=d;
 rul_data.h_old=h;
 
@@ -37,9 +37,9 @@ else
     eta=Hspeed*(PAR.Smod);
 end
 
-xi=@(d)sign(d)*min(abs(d),d0d)*Sgrad;
+xi=@(d)sign(d)*min(abs(d)/PAR.d0d,1)*Sgrad;
 
-fd=@(p)max(-1,min(1,p/2));
+fd=@(p)max(-1,min(1,p/0.2));
 fh=@(p)max(-1,min(1,p/0.05));
 
 %U=-Uh*sign(h_dot-eta)*IT+...
@@ -48,6 +48,7 @@ U=-Uh*fh(h_dot-eta)*IT+...
     sqrt(Um^2-Uh^2)*fd(d_dot+xi(d-d0))*IN;
 
 %% графика
+if PAR.viz_graph
 
 global alg_info
 if isempty(alg_info)
@@ -98,7 +99,7 @@ addPlotData(alg_info.h,h);
 addPlotData(alg_info.hmax,PAR.Hmax);
 addPlotData(alg_info.hmin,PAR.Hmin);
 addPlotData(alg_info.d0,d0);
-
+end
 
 end
 

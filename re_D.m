@@ -1,6 +1,6 @@
 function d=re_D(R)
 %s=[50,79,20];
-global PAR field
+global PAR field Modul
 dzmax=PAR.dHmax*5;
 x=R(1);
 y=R(2);
@@ -14,6 +14,7 @@ H=PAR.H/norm(PAR.H);
 %        abs((A-s(1))*H(1)+(B-s(2))*H(2))<PAR.dHmax,...
 %        abs((B-s(2))*H(2)+(C-s(3))*H(3))<PAR.dHmax),...
 %        abs((C-s(3))*H(3)+(A-s(1))*H(1))<PAR.dHmax);
+layerln=@(A,B,C,s)abs((A-s(1))*H(1)+(B-s(2))*H(2)+(C-s(3))*H(3));
 layerf=@(A,B,C,s)(abs((A-s(1))*H(1)+(B-s(2))*H(2)+(C-s(3))*H(3))<PAR.dHmax);
 %% перебор слоев
 for k=1:field.l
@@ -21,14 +22,15 @@ for k=1:field.l
     X_k=field.Xm{k};
     Y_k=field.Ym{k};
     
-    layer=layerf(X_k,Y_k,Z_k,R);
+    layerln=layerln(X_k,Y_k,Z_k,R);
+    layer=layerln<PAR.dHmax;
     %abs(Z_k-z)<dzmax;
     
     Zz_k=Z_k(layer);
     Xz_k=X_k(layer);
     Yz_k=Y_k(layer);
-
-    D_k=sqrt((Xz_k-x).^2+(Yz_k-y).^2+(Zz_k-z).^2);
+    layerln_k=layerln(layer);
+    D_k=sqrt((Xz_k-x).^2+(Yz_k-y).^2+(Zz_k-z).^2-layerln_k.^2);
     [d_k,Ind]=min(D_k);
     if isempty(d_k)
         d_k=inf;
@@ -49,21 +51,25 @@ Xz=X(layer);
 Yz=Y(layer);
 d=Dmin;
 Ind=Iopt;
-%% графика ----------------------------------------------------------------
 if (d==inf)
     return
 end
+%% графика ----------------------------------------------------------------
 global fig
 if ~isfield(fig,'trace')
     figure(3000);
-    fig.layer3=plot3(Xz,Yz,Zz,'G.');      
+    if (PAR.green_iso)
+        fig.layer3=plot3(Xz,Yz,Zz,'G.');      
+    end
     fig.trace=plot3(Xz(Ind),Yz(Ind),Zz(Ind),'B','linewidth',3);  
 end
+if sum(abs(PAR.WipeTime-Modul.T)<Modul.dt)
+    setPlotData(fig.trace,[],[],[]);
+end    
 addPlotData(fig.trace,Xz(Ind),Yz(Ind),Zz(Ind));
-set(fig.layer3,'xdata',Xz...
-     ,'ydata',Yz...
-     ,'zdata',Zz);
- 
+if PAR.green_iso
+    set(fig.layer3,'xdata',Xz,'ydata',Yz,'zdata',Zz);
+end
 if ~isfield(fig,'layer') || ~ishandle(fig.layer.figH)
     fig.layer.figH=figure(1001);
     clf
@@ -92,7 +98,6 @@ if isequal('on',get(fig.layer.figH,'Visible'))
     %UpPlotData(fig.trace2,x,y);
 end
 
-global Modul
 if Modul.T<PAR.Tin
 if ~isfield(fig,'layer2') || ~ishandle(fig.layer2.figH)
     fig.layer2.figH=figure(1002);

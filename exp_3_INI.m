@@ -1,36 +1,37 @@
+
+close all
 clear all
 clc;
 def_ini
 %% Начальная позиция и ориентация робота.
-R=[50,50,0]; %[x,y,z]
+R=[60,40,0]; %[x,y,z]
 Rang_=[pi/2+0.1,0]; %Угло отклонения от Z и угол отклонения от X;
 %% Параметры алгоритма и моделирования
 global Modul
-Modul.dt=0.01; %Шаг дискретизации
-Modul.T=0;     %текущее время 
-Modul.N=0;     %текущий шаг
-Modul.freq=0.4;  %Частота обновления картинки в секундах
-Modul.freqN=floor(Modul.freq/Modul.dt);
+Modul.freq=5;%0.4;  %Частота обновления картинки в секундах
+Modul.Tend=250;
 
 global PAR
 PAR.d0=10;      %Приследуемое значение
 PAR.d0d=5;     %дельта в законе управления 5.5
-PAR.Hspeed=1;   %Эта*
+PAR.Hspeed=0.1;   %Эта*
 PAR.H=[0,0,1];
-PAR.re_h=@(R)100*(atan2(R(2),R(3)))/pi;
+PAR.re_h=@(R)mod(150+100*(atan2(R(2),R(3)))/pi,200)-100;
 
 PAR.dHmax=2;    %Толщина сканируемого слоя
 
-PAR.Hmax=150;    %H+
-PAR.Hmin=-150;    %H-
+PAR.Hmax=110;    %H+
+PAR.Hmin=-110;    %H-
 PAR.USpeed=5;   %Угловая скорость
 PAR.VSpeed=10;  %Линейная скорость
 
-PAR.Uh=0.01;    %u_h с чертой
+PAR.Uh=0.05;    %u_h с чертой
 PAR.Um=1;       %u с чертой
 
 PAR.Tin=20;     %время процесса IN
 PAR.Smod=1;     %Начальное значение S+-
+
+PAR.run_dynamic='exp_3_dyn';
 %% Поле
 
 RB=50;
@@ -38,7 +39,7 @@ RM=10;
 
 figure(3000)
 clf
-axis([-160,160,-160,160,-160,160])
+axis([-100,100,-100,100,-100,100])
 hold on
 [angin,angout]=meshgrid(0:pi/50:2*pi,pi:pi/100:3*pi);
 R_=RB+RM*cos(angin);
@@ -60,14 +61,7 @@ field.Xm={X};
 field.Ym={Y};
 field.Zm={Z};
 
-field.Xsize=[-200,200];
-field.Ysize=[-200,200];
-field.Zsize=[-200,200];
+field.Xsize=[-100,100];
+field.Ysize=[-100,100];
+field.Zsize=[-100,100];
 
-
-for i=1:field.l
-[~,k2]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmax*[1,1],'R');
-set(k2,'LineWidth',2);
-[~,k3]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmin*[1,1],'R');
-set(k3,'LineWidth',2);
-end
