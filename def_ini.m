@@ -7,7 +7,7 @@ Rang_=[pi/2,0]; %Угло отклонения от Z и угол отклонения от X;
 global Modul
 Modul.dt=0.02; %Шаг дискретизации
 Modul.T=0;     %текущее время 
-Modul.Tend=1000;     %текущее время 
+Modul.Tend=1;     %текущее время 
 Modul.N=0;     %текущий шаг
 Modul.freq=1;  %Частота обновления картинки в секундах
 Modul.SaveExp=false;
@@ -21,6 +21,9 @@ PAR.H=[0,0,1];  %Вектор h
 %PAR.re_H=@(R)([0,0,1]);
 PAR.re_h=@(R)(R(3));
 PAR.d_noise=0;
+PAR.h_noise=0;
+PAR.filtON=0;
+
 
 PAR.dHmax=2;    %Толщина сканируемого слоя
 

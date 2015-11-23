@@ -13,7 +13,13 @@ Um=PAR.Um;       %u с чертой
 
 h=PAR.re_h(R);
 d=re_D(R);
+%% Шум
+d=d+randn(1)*PAR.d_noise;
+h=h+randn(1)*PAR.h_noise;
+
+%%
 d=myfilt(d);
+h=myfilt2(h);
 
 if isempty(rul_data)
     rul_data.h_old=h;   
@@ -44,8 +50,25 @@ fh=@(p)max(-1,min(1,p/0.05));
 
 %U=-Uh*sign(h_dot-eta)*IT+...
 %    sqrt(Um^2-Uh^2)*sign(d_dot+xi(d-d0))*IN;
-U=-Uh*fh(h_dot-eta)*IT+...
-    sqrt(Um^2-Uh^2)*fd(d_dot+xi(d-d0))*IN;
+drul=-fh(h_dot-eta);
+hrul=fd(d_dot+xi(d-d0));
+%% filt
+global filtHD
+if isempty(filtHD)
+    filtHD.h=hrul;
+    filtHD.d=drul;
+end
+
+if PAR.filtON
+    drul=drul-0.01*(drul-filtHD.d)/Modul.dt;
+    hrul=hrul-0.001*(hrul-filtHD.h)/Modul.dt;
+end
+filtHD.h=hrul;
+filtHD.d=drul;
+
+U=Uh*drul*IT+...
+    sqrt(Um^2-Uh^2)*hrul*IN;
+
 
 %% графика
 if PAR.viz_graph
