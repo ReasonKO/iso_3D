@@ -2,10 +2,11 @@
 %exp_2_INI
 %exp_3_INI
 %exp_4_INI
-%exp_5_INI
-exp_6_INI
+exp_5_INI
+%exp_6_INI
 
 global Modul PAR
+%PAR.d_noise=1;
 Modul.SaveExp=true;
 
 [~,~,I]=locI(Rang_);

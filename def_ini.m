@@ -20,6 +20,7 @@ PAR.Hspeed=1;   %Эта*
 PAR.H=[0,0,1];  %Вектор h
 %PAR.re_H=@(R)([0,0,1]);
 PAR.re_h=@(R)(R(3));
+PAR.d_noise=0;
 
 PAR.dHmax=2;    %Толщина сканируемого слоя
 

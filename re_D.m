@@ -51,6 +51,7 @@ Xz=X(layer);
 Yz=Y(layer);
 d=Dmin;
 Ind=Iopt;
+d=d+randn(1)*PAR.d_noise;
 if (d==inf)
     return
 end
