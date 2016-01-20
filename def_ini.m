@@ -10,7 +10,7 @@ Modul.T=0;     %текущее врем€
 Modul.Tend=1;     %текущее врем€ 
 Modul.N=0;     %текущий шаг
 Modul.freq=1;  %„астота обновлени€ картинки в секундах
-Modul.SaveExp=false;
+Modul.SaveExp=true;
 
 global PAR
 PAR.d0=20;      %ѕриследуемое значение

@@ -67,7 +67,7 @@ hold on
 
 colormap('gray');
 shading interp
-view([90,120,140]);
+view([-30,120,140]);
 
 global field
 field.l=1;
