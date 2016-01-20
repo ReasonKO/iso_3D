@@ -1,19 +1,5 @@
-%exp_1_INI
-%exp_2_INI
-%exp_3_INI
-%exp_4_INI
-%exp_5_INI
-exp_6_INI
-
-%exp_51_INI
 
 global Modul PAR
-%PAR.d_noise=1;
-%PAR.h_noise=0.05;
-%PAR.filtON=true;
-
-Modul.SaveExp=true;
-
 [~,~,I]=locI(Rang_);
 while Modul.T<=Modul.Tend
     Iu=rul(R,I);

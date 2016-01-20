@@ -25,7 +25,7 @@ PAR.h_noise=0;
 PAR.filtON=0;
 
 
-PAR.dHmax=2;    %Толщина сканируемого слоя
+PAR.dHmax=1;    %Толщина сканируемого слоя
 
 PAR.Hmax=15;    %H+
 PAR.Hmin=-15;    %H-

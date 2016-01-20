@@ -1,7 +1,7 @@
 function d=re_D(R)
 %s=[50,79,20];
 global PAR field Modul
-dzmax=PAR.dHmax*5;
+dzmax=PAR.dHmax;
 x=R(1);
 y=R(2);
 z=R(3);
@@ -10,10 +10,7 @@ Kopt=1;
 Dmin=inf;
 Iopt=1;
 H=PAR.H/norm(PAR.H);
-%layerf=@(A,B,C,s)and(and(...
-%        abs((A-s(1))*H(1)+(B-s(2))*H(2))<PAR.dHmax,...
-%        abs((B-s(2))*H(2)+(C-s(3))*H(3))<PAR.dHmax),...
-%        abs((C-s(3))*H(3)+(A-s(1))*H(1))<PAR.dHmax);
+
 layerln=@(A,B,C,s)abs((A-s(1))*H(1)+(B-s(2))*H(2)+(C-s(3))*H(3));
 layerf=@(A,B,C,s)(abs((A-s(1))*H(1)+(B-s(2))*H(2)+(C-s(3))*H(3))<PAR.dHmax);
 %% перебор слоев
@@ -23,14 +20,14 @@ for k=1:field.l
     Y_k=field.Ym{k};
     
     layerln=layerln(X_k,Y_k,Z_k,R);
-    layer=layerln<PAR.dHmax;
+    layer=layerln<dzmax;
     %abs(Z_k-z)<dzmax;
     
     Zz_k=Z_k(layer);
     Xz_k=X_k(layer);
     Yz_k=Y_k(layer);
     layerln_k=layerln(layer);
-    D_k=sqrt((Xz_k-x).^2+(Yz_k-y).^2+(Zz_k-z).^2-layerln_k.^2);
+    D_k=sqrt((Xz_k-x).^2+(Yz_k-y).^2+(Zz_k-z).^2+layerln_k.^2);
     [d_k,Ind]=min(D_k);
     if isempty(d_k)
         d_k=inf;
