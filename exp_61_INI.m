@@ -44,7 +44,7 @@ figure(5)
 plot(-pi:pi/50:pi,vt((-pi:pi/50:pi)*2+pi/4));
 
 figure(3000)
-R_=80*ones(size(ang1));
+R_=80*ones(size(ang1))
 R_=R_.*vt2(ang1,(abs(ang2)-0.50)*2.5);
 %R=R.*vt((abs(ang2)-pi/6)/pi*12);
 %R(or(abs(ang1*2)>=1,abs(abs(ang2)-pi/6)/pi*12>1))=1;
@@ -53,6 +53,8 @@ Z=R_.*cos(ang2);
 X=R_.*cos(ang1).*sin(ang2);
 Y=R_.*sin(ang1).*sin(ang2)*0.6;
 L=(vt2(ang1,(abs(ang2)-0.50)*2.5)-1);
+Sx=X;
+Sy=Y;
 Y=Y+40.*sign(X).*sin(L*3);
 X=X-20.*sign(X).*sin(L*3);
 
@@ -61,6 +63,14 @@ X=X-20.*sign(X).*sin(L*3);
 surf(X,Y,Z,'EdgeColor','none');
 axis([-100,100,-100,100,0,150])
 hold on
+L2=R_/80-1;
+Y=Sy+40.*sign(Sx).*sin(L2*3);
+X=Sx-20.*sign(Sx).*sin(L2*3);
+mesh(X,Y,Z,'EdgeColor','none');
+axis([-100,100,-100,100,0,150])
+hold on
+
+
 %[ang,R__]=meshgrid(-pi:pi/10:pi,0:0.1:1);
 %R_2=vt(abs(ang)*2/pi).*R__*27;
 %surf(R_2.*cos(ang),R_2.*sin(ang),100*ones(size(ang)));
@@ -87,4 +97,4 @@ set(k2,'LineWidth',2);
 set(k3,'LineWidth',2);
 end
 %%
-iso_MODUL
+%iso_MODUL
