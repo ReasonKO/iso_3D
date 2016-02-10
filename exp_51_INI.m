@@ -9,7 +9,11 @@ Rang_=[pi/2-0.15,-1.7]; %Угло отклонения от Z и угол отклонения от X;
 %% Параметры алгоритма и моделирования
 global Modul
 Modul.freq=3;  %Частота обновления картинки в секундах
+<<<<<<< HEAD
 Modul.Tend=265*3+200;%865;
+=======
+Modul.Tend=265*3;%865;
+>>>>>>> origin/master
 Modul.SaveExp=true;
 
 global PAR
@@ -28,7 +32,11 @@ PAR.Uh=0.01;    %u_h с чертой
 PAR.Um=1;       %u с чертой
 
 PAR.Tin=65;     %время процесса IN
+<<<<<<< HEAD
 PAR.WipeTime=420;
+=======
+PAR.WipeTime=390;
+>>>>>>> origin/master
 
 %% Поле
 

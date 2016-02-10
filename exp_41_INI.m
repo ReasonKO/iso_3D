@@ -42,6 +42,7 @@ R_=sqrt(h)+5;
 vt=@(t)(0.5+((sin((abs(t)*2-1)*pi/2))/2+0.5)*0.5).*(abs(t)<1)+1*(abs(t)>=1);
 
 
+
 Z=h;
 X=R_.*cos(ang)*5.*vt(ang).*vt(azi(pi+ang));
 Y=R_.*sin(ang)*5.*vt(ang).*vt(azi(pi+ang));
@@ -72,4 +73,4 @@ set(k2,'LineWidth',2);
 set(k3,'LineWidth',2);
 end
 %%
-iso_MODUL
+%iso_MODUL
