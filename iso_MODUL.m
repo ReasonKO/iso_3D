@@ -15,4 +15,8 @@ while Modul.T<=Modul.Tend
     Modul.T=Modul.T+Modul.dt;
     Modul.N=Modul.N+1;
 end
+MAP();
+drawnow();
+iso_save_map();
 iso_save_param();
+iso_save_map();

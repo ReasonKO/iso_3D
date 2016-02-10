@@ -47,42 +47,42 @@ PAR.viz_graph=true;%false;
 RB=50;
 RM=15;
 
-figure(3000)
-clf
-axis([-160,160,-160,160,-160,160])
-hold on
-[angin,angout]=meshgrid(0:pi/50:2*pi,pi:pi/100:3*pi);
-R_=RB+RM*cos(angin);
-Z=RM*sin(angin);
-X=R_.*cos(angout);
-Y=R_.*sin(angout);
+% figure(3000)
+% clf
+% axis([-160,160,-160,160,-160,160])
+% hold on
+% [angin,angout]=meshgrid(0:pi/50:2*pi,pi:pi/100:3*pi);
+% R_=RB+RM*cos(angin);
+% Z=RM*sin(angin);
+% X=R_.*cos(angout);
+% Y=R_.*sin(angout);
+% 
+% 
+% PAR.Hspeed=2;   %Эта*
+% PAR.Hmax=50;    %H+
+% PAR.Hmin=-50;    %H-
+% X_=X;
+% X=Z*2;
+% Z=X_*2;
 
-
-PAR.Hspeed=2;   %Эта*
-PAR.Hmax=50;    %H+
-PAR.Hmin=-50;    %H-
-X_=X;
-X=Z*2;
-Z=X_*2;
-
-surf(X,Y,Z,'EdgeColor','none');
-colormap('copper');
-shading interp
-
+% surf(X,Y,Z,'EdgeColor','none');
+% colormap('copper');
+% shading interp
+% 
 global field
 field.l=1;
-field.Xm={X};
-field.Ym={Y};
-field.Zm={Z};
+% field.Xm={X};
+% field.Ym={Y};
+% field.Zm={Z};
 
 field.Xsize=[-200,200];
 field.Ysize=[-200,200];
 field.Zsize=[-200,200];
 
 
-for i=1:field.l
-[~,k2]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmax*[1,1],'R');
-set(k2,'LineWidth',2);
-[~,k3]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmin*[1,1],'R');
-set(k3,'LineWidth',2);
-end
+% for i=1:field.l
+% [~,k2]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmax*[1,1],'R');
+% set(k2,'LineWidth',2);
+% [~,k3]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmin*[1,1],'R');
+% set(k3,'LineWidth',2);
+% end
