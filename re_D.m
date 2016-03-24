@@ -60,9 +60,17 @@ if ~isfield(fig,'trace')
     end
     fig.trace=plot3(Xz(Ind),Yz(Ind),Zz(Ind),'B','linewidth',3);  
 end
+
+if PAR.WipeAuto
+    if PAR.Smod~=PAR.Smod_old
+        setPlotData(fig.trace,[],[],[]);
+    end
+    PAR.Smod_old=PAR.Smod;
+else 
 if sum(abs(PAR.WipeTime-Modul.T)<Modul.dt)
     setPlotData(fig.trace,[],[],[]);
-end    
+end 
+end
 addPlotData(fig.trace,Xz(Ind),Yz(Ind),Zz(Ind));
 if PAR.green_iso
     set(fig.layer3,'xdata',Xz,'ydata',Yz,'zdata',Zz);

@@ -41,6 +41,8 @@ PAR.Smod=1;     %Начальное значение S+-
 PAR.run_dynamic='';
 PAR.green_iso=false;
 PAR.WipeTime=0;
+PAR.WipeAuto=0;
+PAR.Smod_old=0;
 PAR.viz_graph=true;%false;
 %% ПОЛЕ-----------
 

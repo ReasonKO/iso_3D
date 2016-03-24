@@ -3,9 +3,9 @@
 %exp_3_INI
 %exp_4_INI
 %exp_5_INI
-exp_6_INI
-
-%exp_51_INI
+% exp_6_INI
+% 
+% exp_31_INI
 
 global Modul PAR
 %PAR.d_noise=1;

@@ -67,11 +67,11 @@ hold on
 L2=R_/80-1;
 Y=Sy+40.*sign(Sx).*sin(L2*3);
 X=Sx-20.*sign(Sx).*sin(L2*3);
-<<<<<<< HEAD
+%<<<<<<< HEAD
 %mesh(X,Y,Z,'EdgeColor','none');
-=======
+%=======
 mesh(X,Y,Z,'EdgeColor','none');
->>>>>>> origin/master
+%>>>>>>> origin/master
 axis([-100,100,-100,100,0,150])
 hold on
 
