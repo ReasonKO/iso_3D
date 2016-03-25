@@ -43,6 +43,13 @@ Z=field.Zm{Kopt};
 X=field.Xm{Kopt};
 Y=field.Ym{Kopt};
 layer=layerf(X,Y,Z,R);
+Z_layer=Z;
+Z_layer(~layer)=NaN;
+X_layer=X;
+X_layer(~layer)=NaN;
+Y_layer=Y;
+Y_layer(~layer)=NaN;
+
 Zz=Z(layer);
 Xz=X(layer);
 Yz=Y(layer);
@@ -85,6 +92,7 @@ if ~isfield(fig,'layer') || ~ishandle(fig.layer.figH)
     for i=1:field.l
         fig.layer.fieldi{i}=plot(0,0,'K.');
     end
+    fig.layer.field3=surf(X_layer,Y_layer,zeros(size(Z_layer))); 
     fig.layer.robot=plot(0,0,'R*');
     fig.layer.line=plot(0,0,'R-');
 end
@@ -98,6 +106,7 @@ if isequal('on',get(fig.layer.figH,'Visible'))
         Yzi=Yi(abs(Zi-z)<dzmax);
         set(fig.layer.fieldi{i},'xdata',Xzi,'ydata',Yzi);
     end
+    set(fig.layer.field3,'xdata',X_layer,'ydata',Y_layer,'zdata',Z_layer-z*ones(size(Z_layer)));    
     set(fig.layer.robot,'xdata',x,'ydata',y);
     set(fig.layer.line,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
     %UpPlotData(fig.trace2,x,y);
@@ -112,12 +121,13 @@ if ~isfield(fig,'layer2') || ~ishandle(fig.layer2.figH)
     title('layer t<Tin');
     fig.trace3=plot(x,y,'B','linewidth',1.5);
     fig.layer2.field2=plot(0,0,'K.');
+    fig.layer2.field3=surf(X_layer,Y_layer,zeros(size(Z_layer)));
     fig.layer2.robot2=plot(0,0,'R*','linewidth',2);
     fig.layer2.line2=plot(0,0,'R-');
 end
-
 if isequal('on',get(fig.layer2.figH,'Visible'))
     set(fig.layer2.field2,'xdata',Xz,'ydata',Yz);
+    set(fig.layer2.field3,'xdata',X_layer,'ydata',Y_layer,'zdata',Z_layer-z*ones(size(Z_layer)));
     set(fig.layer2.robot2,'xdata',x,'ydata',y);
     set(fig.layer2.line2,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
     addPlotData(fig.trace3,x,y);
