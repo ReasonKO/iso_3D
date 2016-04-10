@@ -21,6 +21,8 @@ h=h+randn(1)*PAR.h_noise;
 d=myfilt(d);
 h=myfilt2(h);
 
+
+
 if isempty(rul_data)
     rul_data.h_old=h;   
     rul_data.d_old=d;   
@@ -75,6 +77,19 @@ if PAR.viz_graph
 
 global alg_info
 if isempty(alg_info)
+    alg_info.ddd=(d-d0)*ones(1,100);
+    alg_info.ddd2=(d-d0)*ones(1,500);
+    figure(147)
+    clf
+        subplot(3,1,2);
+    alg_info.h_ddd=semilogy(0,0);
+    title('~d (for100tick)')  
+        subplot(3,1,3);
+    alg_info.h_ddd2=semilogy(0,0);
+    title('~d (for500tick)')  
+    subplot(3,1,1);
+    alg_info.hdt=plot(0,Modul.dt);
+    title('dt')  
     figure(145);
     clf
     
@@ -111,7 +126,13 @@ if isempty(alg_info)
     legend('h','h_+','h_-');
     title('h')
 end
+alg_info.ddd2=[(d-d0)^2,alg_info.ddd2(1:499)];
+alg_info.ddd=[(d-d0)^2,alg_info.ddd(1:99)];
+addPlotData(alg_info.h_ddd,sqrt(sum(alg_info.ddd)/100));
+addPlotData(alg_info.h_ddd2,sqrt(sum(alg_info.ddd2)/500));
 
+addPlotData(alg_info.hdt,Modul.dt);
+    
 addPlotData(alg_info.d_dot,d_dot);
 addPlotData(alg_info.h_dot,h_dot);
 addPlotData(alg_info.d_need,-xi(d-d0));

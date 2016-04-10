@@ -9,11 +9,11 @@ Rang_=[pi/2-0.15,-1.7]; %Угло отклонения от Z и угол отклонения от X;
 %% Параметры алгоритма и моделирования
 global Modul
 Modul.freq=3;  %Частота обновления картинки в секундах
-<<<<<<< HEAD
+%<<<<<<< HEAD
 Modul.Tend=265*3+200;%865;
-=======
-Modul.Tend=265*3;%865;
->>>>>>> origin/master
+%=======
+%Modul.Tend=265*3;%865;
+%>>>>>>> origin/master
 Modul.SaveExp=true;
 
 global PAR
@@ -21,6 +21,7 @@ PAR.d0=10;        %Приследуемое значение
 PAR.d0d=5;        %дельта в законе управления 5.5
 PAR.Sgrad=0.8;    %Гамма в законе управления
 
+%PAR.run_dynamic='exp_52_dyn.m';
 PAR.Hspeed=0.025;   %Эта*
 
 PAR.Hmax=95;    %H+
@@ -32,11 +33,11 @@ PAR.Uh=0.01;    %u_h с чертой
 PAR.Um=1;       %u с чертой
 
 PAR.Tin=65;     %время процесса IN
-<<<<<<< HEAD
+%<<<<<<< HEAD
 PAR.WipeTime=420;
-=======
-PAR.WipeTime=390;
->>>>>>> origin/master
+%=======
+%PAR.WipeTime=390;
+%>>>>>>> origin/master
 
 %% Поле
 

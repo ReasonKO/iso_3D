@@ -10,7 +10,7 @@ Rang_=[pi/2-0.15,-1.7]; %Угло отклонения от Z и угол отклонения от X;
 global Modul
 Modul.freq=3;  %Частота обновления картинки в секундах
 %<<<<<<< HEAD
-Modul.Tend=265*3+170;%865;
+Modul.Tend=265*3+200;%865;
 %=======
 %Modul.Tend=265*3;%865;
 %>>>>>>> origin/master
@@ -21,9 +21,8 @@ PAR.d0=10;        %Приследуемое значение
 PAR.d0d=5;        %дельта в законе управления 5.5
 PAR.Sgrad=0.8;    %Гамма в законе управления
 
-PAR.Hspeed=0.025;   %Эта*
-
 PAR.run_dynamic='exp_52_dyn.m';
+PAR.Hspeed=0.0;   %Эта*
 
 PAR.Hmax=95;    %H+
 PAR.Hmin=5;    %H-
@@ -35,8 +34,7 @@ PAR.Um=1;       %u с чертой
 
 PAR.Tin=65;     %время процесса IN
 %<<<<<<< HEAD
-%PAR.WipeTime=420;
-PAR.WipeAuto=1;
+PAR.WipeTime=420;
 %=======
 %PAR.WipeTime=390;
 %>>>>>>> origin/master
@@ -48,18 +46,15 @@ figure(3000)
 clf
 axis([-100,60,-220,-40,0,80])
 hold on
-[ang,h]=meshgrid(-pi:pi/50:pi,0:0.5:100);
+[ang,h]=meshgrid(-pi:pi/100:pi,0:0.5:100);
 vt=@(t)(0.2+((sin((abs(t)*2-1)*pi/2))/2+0.5)*0.8).*(abs(t)<1)+1*(abs(t)>=1);
 %figure(5)
 %plot(-pi:pi/50:pi,vt(-pi:pi/50:pi));
 %return
-W=15*rand(size(h));
-R_=h.*vt(abs(ang)*2/pi)+W;
+R_=h.*vt(abs(ang)*2/pi);
 Z=100-h;
-X=R_.*cos(ang)+5*rand(size(R_));
-Y=R_.*sin(ang)-1.5*h+5*rand(size(R_));
-
-
+X=R_.*cos(ang);
+Y=R_.*sin(ang)-1.5*h;
 
 surf(X,Y,Z,'EdgeColor','none');
 hold on

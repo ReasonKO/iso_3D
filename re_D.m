@@ -120,18 +120,21 @@ if ~isfield(fig,'layer2') || ~ishandle(fig.layer2.figH)
     hold on
     title('layer t<Tin');
     fig.trace3=plot(x,y,'B','linewidth',1.5);
-    fig.layer2.field2=plot(0,0,'K.');
-    fig.layer2.field3=surf(X_layer,Y_layer,zeros(size(Z_layer)));
+    fig.layer2.field2=plot(NaN,NaN,'K.');
+    %fig.layer2.field3=surf(X_layer,Y_layer,zeros(size(Z_layer)));
     fig.layer2.robot2=plot(0,0,'R*','linewidth',2);
     fig.layer2.line2=plot(0,0,'R-');
 end
 if isequal('on',get(fig.layer2.figH,'Visible'))
-    set(fig.layer2.field2,'xdata',Xz,'ydata',Yz);
-    set(fig.layer2.field3,'xdata',X_layer,'ydata',Y_layer,'zdata',Z_layer-z*ones(size(Z_layer)));
+    addPlotData(fig.layer2.field2,Xz(Ind),Yz(Ind));
+    %set(fig.layer2.field2,'xdata',Xz,'ydata',Yz);
+    %set(fig.layer2.field3,'xdata',X_layer,'ydata',Y_layer,'zdata',Z_layer-z*ones(size(Z_layer)));
     set(fig.layer2.robot2,'xdata',x,'ydata',y);
     set(fig.layer2.line2,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
     addPlotData(fig.trace3,x,y);
 end    
 end
+
+
 
 end

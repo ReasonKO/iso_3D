@@ -6,6 +6,7 @@ if isfield(MAP_PAR,'SAVEMAP')
     saveas(1002,[MAP_PAR.SAVEMAP.name,'/','Tini','.png']);
     saveas(145,[MAP_PAR.SAVEMAP.name,'/','ddot & hdot','.png']);
     saveas(146,[MAP_PAR.SAVEMAP.name,'/','d&h','.png']);
+    saveas(147,[MAP_PAR.SAVEMAP.name,'/','dt','.png']);
 
     fid=fopen([MAP_PAR.SAVEMAP.name,'/','param.txt'],'wb');
     fwrite(fid,sprintf('iso_experiment : %s \n',MAP_PAR.SAVEMAP.name),'int16');    
