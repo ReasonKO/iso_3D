@@ -11,7 +11,22 @@ Hspeed=PAR.Hspeed;
 Uh=PAR.Uh;    %u_h с чертой
 Um=PAR.Um;       %u с чертой
 
-h=PAR.re_h(R);
+if ~isfield(rul_data,'R_old')
+    rul_data.R_old=R;
+    rul_data.accumH=0;
+    rul_data.oldH=PAR.H;
+end
+
+if PAR.accumH
+    rul_data.accumH=rul_data.accumH+1/Modul.dt*sum((R-rul_data.R_old).*rul_data.oldH);
+%    rul_data.accumH=rul_data.accumH+1/Modul.dt*sum((R-rul_data.R_old).*PAR.H);
+    rul_data.R_old=R;
+    h=rul_data.accumH;
+    rul_data.oldH=PAR.H;
+else
+    h=PAR.re_h(R);
+end
+
 d=re_D(R);
 %% Шум
 d=d+randn(1)*PAR.d_noise;
@@ -21,12 +36,11 @@ h=h+randn(1)*PAR.h_noise;
 d=myfilt(d);
 h=myfilt2(h);
 
-
-
-if isempty(rul_data)
+if ~isfield(rul_data,'h_old')
     rul_data.h_old=h;   
-    rul_data.d_old=d;   
+    rul_data.d_old=d; 
 end
+
 
 h_dot=(h-rul_data.h_old)/Modul.dt/PAR.VSpeed;
 d_dot=(d-rul_data.d_old)/Modul.dt/PAR.VSpeed;

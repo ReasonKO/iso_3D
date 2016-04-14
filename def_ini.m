@@ -10,7 +10,7 @@ Modul.T=0;     %текущее время
 Modul.Tend=1;     %текущее время 
 Modul.N=0;     %текущий шаг
 Modul.freq=1;  %Частота обновления картинки в секундах
-Modul.SaveExp=true;
+Modul.SaveExp=false;
 
 global PAR
 PAR.d0=20;      %Приследуемое значение
@@ -23,7 +23,7 @@ PAR.re_h=@(R)(R(3));
 PAR.d_noise=0;
 PAR.h_noise=0;
 PAR.filtON=0;
-
+PAR.accumH=0;
 
 PAR.dHmax=1;    %Толщина сканируемого слоя
 

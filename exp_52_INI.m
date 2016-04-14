@@ -20,20 +20,15 @@ global PAR
 PAR.d0=10;        %Приследуемое значение
 PAR.d0d=5;        %дельта в законе управления 5.5
 PAR.Sgrad=0.8;    %Гамма в законе управления
-
 PAR.Hspeed=0.025;   %Эта*
-
-PAR.run_dynamic='exp_52_dyn.m';
-
+%PAR.run_dynamic='exp_52_dyn.m';
 PAR.Hmax=95;    %H+
 PAR.Hmin=5;    %H-
 PAR.USpeed=5;   %Угловая скорость
 PAR.VSpeed=10;  %Линейная скорость
-
 PAR.Uh=0.01;    %u_h с чертой
 PAR.Um=1;       %u с чертой
-
-PAR.Tin=65;     %время процесса IN
+PAR.Tin=90;     %время процесса IN
 %<<<<<<< HEAD
 %PAR.WipeTime=420;
 PAR.WipeAuto=1;

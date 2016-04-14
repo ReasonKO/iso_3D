@@ -55,7 +55,12 @@ Xz=X(layer);
 Yz=Y(layer);
 d=Dmin;
 Ind=Iopt;
-if (d==inf)
+if (isnan(d))
+    error('NaN');
+end
+if (isinf(d))
+    warning('inf');
+    fprintf('WARNING: d=inf!\n');
     return
 end
 %% графика ----------------------------------------------------------------
@@ -92,7 +97,7 @@ if ~isfield(fig,'layer') || ~ishandle(fig.layer.figH)
     for i=1:field.l
         fig.layer.fieldi{i}=plot(0,0,'K.');
     end
-    fig.layer.field3=surf(X_layer,Y_layer,zeros(size(Z_layer))); 
+    %fig.layer.field3=surf(X_layer,Y_layer,zeros(size(Z_layer))); 
     fig.layer.robot=plot(0,0,'R*');
     fig.layer.line=plot(0,0,'R-');
 end
@@ -106,13 +111,13 @@ if isequal('on',get(fig.layer.figH,'Visible'))
         Yzi=Yi(abs(Zi-z)<dzmax);
         set(fig.layer.fieldi{i},'xdata',Xzi,'ydata',Yzi);
     end
-    set(fig.layer.field3,'xdata',X_layer,'ydata',Y_layer,'zdata',Z_layer-z*ones(size(Z_layer)));    
+    %set(fig.layer.field3,'xdata',X_layer,'ydata',Y_layer,'zdata',Z_layer-z*ones(size(Z_layer)));    
     set(fig.layer.robot,'xdata',x,'ydata',y);
     set(fig.layer.line,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
     %UpPlotData(fig.trace2,x,y);
 end
 
-if Modul.T<PAR.Tin
+if Modul.T<=PAR.Tin
 if ~isfield(fig,'layer2') || ~ishandle(fig.layer2.figH)
     fig.layer2.figH=figure(1002);
     clf
