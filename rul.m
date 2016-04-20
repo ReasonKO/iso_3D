@@ -33,8 +33,8 @@ d=d+randn(1)*PAR.d_noise;
 h=h+randn(1)*PAR.h_noise;
 
 %%
-%d=myfilt(d);
-%h=myfilt2(h);
+d=myfilt(d);
+h=myfilt2(h);
 
 if ~isfield(rul_data,'h_old')
     rul_data.h_old=h;   
