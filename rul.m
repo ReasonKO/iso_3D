@@ -18,7 +18,7 @@ if ~isfield(rul_data,'R_old')
 end
 
 if PAR.accumH
-    rul_data.accumH=rul_data.accumH+1/Modul.dt*sum((R-rul_data.R_old).*rul_data.oldH);
+    rul_data.accumH=rul_data.accumH+sum((R-rul_data.R_old).*rul_data.oldH);
 %    rul_data.accumH=rul_data.accumH+1/Modul.dt*sum((R-rul_data.R_old).*PAR.H);
     rul_data.R_old=R;
     h=rul_data.accumH;
@@ -33,16 +33,19 @@ d=d+randn(1)*PAR.d_noise;
 h=h+randn(1)*PAR.h_noise;
 
 %%
-d=myfilt(d);
-h=myfilt2(h);
+%d=myfilt(d);
+%h=myfilt2(h);
 
 if ~isfield(rul_data,'h_old')
     rul_data.h_old=h;   
     rul_data.d_old=d; 
 end
 
-
+if PAR.AngH
+h_dot=azi((h-rul_data.h_old)/10)/Modul.dt/PAR.VSpeed;
+else
 h_dot=(h-rul_data.h_old)/Modul.dt/PAR.VSpeed;
+end
 d_dot=(d-rul_data.d_old)/Modul.dt/PAR.VSpeed;
 rul_data.d_old=d;
 rul_data.h_old=h;
@@ -62,28 +65,28 @@ end
 xi=@(d)sign(d)*min(abs(d)/PAR.d0d,1)*Sgrad;
 
 fd=@(p)max(-1,min(1,p/0.2));
-fh=@(p)max(-1,min(1,p/0.05));
+fh=@(p)max(-1,min(1,p/5*0.05));
 
 %U=-Uh*sign(h_dot-eta)*IT+...
 %    sqrt(Um^2-Uh^2)*sign(d_dot+xi(d-d0))*IN;
-drul=-fh(h_dot-eta);
-hrul=fd(d_dot+xi(d-d0));
+hrul=-fh(h_dot-eta);
+drul=fd(d_dot+xi(d-d0));
 %% filt
-global filtHD
-if isempty(filtHD)
-    filtHD.h=hrul;
-    filtHD.d=drul;
-end
+% global filtHD
+% if isempty(filtHD)
+%     filtHD.h=hrul;
+%     filtHD.d=drul;
+% end
 
-if PAR.filtON
-    drul=drul-0.01*(drul-filtHD.d)/Modul.dt;
-    hrul=hrul-0.001*(hrul-filtHD.h)/Modul.dt;
-end
-filtHD.h=hrul;
-filtHD.d=drul;
+% if PAR.filtON
+%     drul=drul-0.01*(drul-filtHD.d)/Modul.dt;
+%     hrul=hrul-0.001*(hrul-filtHD.h)/Modul.dt;
+% end
+% filtHD.h=hrul;
+% filtHD.d=drul;
 
-U=Uh*drul*IT+...
-    sqrt(Um^2-Uh^2)*hrul*IN;
+U=Uh*hrul*IT+...
+    sqrt(Um^2-Uh^2)*drul*IN;
 
 
 %% графика

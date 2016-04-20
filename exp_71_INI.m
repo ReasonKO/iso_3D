@@ -17,22 +17,34 @@ global PAR
 PAR.d0=10;        %Приследуемое значение
 PAR.d0d=5;        %дельта в законе управления 5.5
 PAR.Sgrad=0.6;    %Гамма в законе управления
-PAR.Hspeed=0.1;   %Эта*
-PAR.Hmax=40;    %H+
-PAR.Hmin=-40;    %H-
+PAR.Hspeed=0.01;   %Эта*
+PAR.Hmax=80;    %H+
+PAR.Hmin=-80;    %H-
 PAR.USpeed=2;   %Угловая скорость
 PAR.VSpeed=10;  %Линейная скорость
-PAR.Uh=0.1;    %u_h с чертой
+PAR.Uh=0.5;    %u_h с чертой
 PAR.Um=1;       %u с чертой
 PAR.Tin=40;     %время процесса IN
 PAR.WipeAuto=1;
 PAR.dHmax=3;
 PAR.run_dynamic='exp_71_dyn';
+%PAR.AngH=true;
 PAR.accumH=true;
+
+%PAR.re_h=@(R)...
+%  20*mod(pi+atan2(R(1)*R(3),abs(R(3))),pi);
+
+% PAR.re_h=@(R)...
+%   20*mod(pi+atan2(...
+% cross(R,[0,1,0])*[0,0,1]'*...
+% sign(cross(R,[0,1,0])*[1,0,0]'),...
+% abs(cross(R,[0,1,0])*[1,0,0]')),pi);
+
+%.sin(atan2(R(1),R(2)))*cos(atan2(R(3),sqrt(R(1)^2+R(2)^2))+pi/2),sin(atan2(R(3),sqrt(R(1)^2+R(2)^2))+pi/2));
 %% Поле
 
 vt=@(t)1;%(0.2+((sin((abs(t)*2-1)*pi/2))/2+0.5)*0.8).*(abs(t)<1)+1*(abs(t)>=1);
-[ang1,ang2]=meshgrid(-pi:pi/40:pi,-pi/2:pi/40:pi/2);
+[ang1,ang2]=meshgrid(-pi:pi/200:pi,-pi/2:pi/200:pi/2);
 R_=50;
 X=R_*sin(ang1).*cos(ang2).*max(vt(azi(ang1-pi/3)),vt(ang2));
 Y=R_*cos(ang1).*cos(ang2).*max(vt(azi(ang1-pi/3)),vt(ang2));
@@ -66,5 +78,5 @@ end
 %%
 PAR.d_noise=0;
 PAR.h_noise=0.00;
-PAR.filtON=true;
+PAR.filtON=false;
 iso_MODUL

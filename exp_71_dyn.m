@@ -1,10 +1,24 @@
 global PAR
 %oldH=H;
-%an1=atan2(R(1),R(2));
-%an2=atan2(R(3),sqrt(R(1)^2+R(2)^2))+pi/2;
-%PAR.H=[sin(an1)*cos(an2),cos(an1)*cos(an2),sin(an2)];
-PAR.H=cross(R,I);
-PAR.H=PAR.H/norm(PAR.H);
+% an1=atan2(R(1),R(2));
+% an2=atan2(R(3),sqrt(R(1)^2+R(2)^2))+pi/2;
+% PAR.H=[sin(an1)*cos(an2),cos(an1)*cos(an2),sin(an2)];
+% if norm(temp)>10
+%     PAR.H=temp;
+%     
+% end
+
+
+% temp=cross(R,[0,1,0]);
+% if norm(temp)>15
+%      PAR.H=temp*sign(temp(3));
+%      PAR.H=PAR.H/norm(PAR.H);
+% end
+% PAR.H=PAR.H/norm(PAR.H);
+
+
+
+%PAR.H=cross(R,I);
 
 % global fsdfsdf
 % if isempty(fsdfsdf)
