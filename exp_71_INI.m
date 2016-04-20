@@ -9,20 +9,20 @@ Rang_=[pi/2-0.15,-1.7]; %Угло отклонения от Z и угол отклонения от X;
 %% Параметры алгоритма и моделирования
 global Modul
 Modul.freq=1;  %Частота обновления картинки в секундах
-Modul.Tend=265*3+170;%865;
+Modul.Tend=700;%865;
 
-%Modul.SaveExp=true;
+Modul.SaveExp=true;
 
 global PAR
 PAR.d0=10;        %Приследуемое значение
 PAR.d0d=5;        %дельта в законе управления 5.5
 PAR.Sgrad=0.6;    %Гамма в законе управления
-PAR.Hspeed=0.01;   %Эта*
-PAR.Hmax=80;    %H+
-PAR.Hmin=-80;    %H-
+PAR.Hspeed=0.03;   %Эта*
+PAR.Hmax=45;    %H+
+PAR.Hmin=-45;    %H-
 PAR.USpeed=2;   %Угловая скорость
 PAR.VSpeed=10;  %Линейная скорость
-PAR.Uh=0.5;    %u_h с чертой
+PAR.Uh=0.1;    %u_h с чертой
 PAR.Um=1;       %u с чертой
 PAR.Tin=40;     %время процесса IN
 PAR.WipeAuto=1;
@@ -30,7 +30,8 @@ PAR.dHmax=3;
 PAR.run_dynamic='exp_71_dyn';
 %PAR.AngH=true;
 PAR.accumH=true;
-
+PAR.accumH_def=-20;
+PAR.ExpName='sphere';
 %PAR.re_h=@(R)...
 %  20*mod(pi+atan2(R(1)*R(3),abs(R(3))),pi);
 
@@ -44,7 +45,7 @@ PAR.accumH=true;
 %% Поле
 
 vt=@(t)1;%(0.2+((sin((abs(t)*2-1)*pi/2))/2+0.5)*0.8).*(abs(t)<1)+1*(abs(t)>=1);
-[ang1,ang2]=meshgrid(-pi:pi/200:pi,-pi/2:pi/200:pi/2);
+[ang1,ang2]=meshgrid(-pi:pi/100:pi,-pi/2:pi/100:pi/2);
 R_=50;
 X=R_*sin(ang1).*cos(ang2).*max(vt(azi(ang1-pi/3)),vt(ang2));
 Y=R_*cos(ang1).*cos(ang2).*max(vt(azi(ang1-pi/3)),vt(ang2));
@@ -68,15 +69,15 @@ field.Xsize=[-50,50];
 field.Ysize=[-50,50];
 field.Zsize=[-50,50];
 
-
-for i=1:field.l
-[~,k2]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmax*[1,1],'R');
-set(k2,'LineWidth',2);
-[~,k3]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmin*[1,1],'R');
-set(k3,'LineWidth',2);
-end
+% 
+% for i=1:field.l
+% [~,k2]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmax*[1,1],'R');
+% set(k2,'LineWidth',2);
+% [~,k3]=contour3(field.Xm{i},field.Ym{i},field.Zm{i},PAR.Hmin*[1,1],'R');
+% set(k3,'LineWidth',2);
+% end
 %%
 PAR.d_noise=0;
 PAR.h_noise=0.00;
-PAR.filtON=false;
+PAR.filtON=true;
 iso_MODUL

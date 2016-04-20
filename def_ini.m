@@ -25,7 +25,10 @@ PAR.h_noise=0;
 PAR.filtON=0;
 PAR.accumH=0;
 PAR.AngH=false;
+PAR.accumH_def=0;
 PAR.dHmax=1;    %Толщина сканируемого слоя
+
+PAR.ExpName='';
 
 PAR.Hmax=15;    %H+
 PAR.Hmin=-15;    %H-

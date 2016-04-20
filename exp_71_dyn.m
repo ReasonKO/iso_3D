@@ -1,7 +1,11 @@
-global PAR
+global PAR Modul
 %oldH=H;
 % an1=atan2(R(1),R(2));
 % an2=atan2(R(3),sqrt(R(1)^2+R(2)^2))+pi/2;
+
+%PAR.H=[0,0,1];
+PAR.H=[sin(Modul.T/100),0,cos(Modul.T/100)];
+
 % PAR.H=[sin(an1)*cos(an2),cos(an1)*cos(an2),sin(an2)];
 % if norm(temp)>10
 %     PAR.H=temp;

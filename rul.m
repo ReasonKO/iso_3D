@@ -13,7 +13,7 @@ Um=PAR.Um;       %u с чертой
 
 if ~isfield(rul_data,'R_old')
     rul_data.R_old=R;
-    rul_data.accumH=0;
+    rul_data.accumH=PAR.accumH_def;
     rul_data.oldH=PAR.H;
 end
 
@@ -65,7 +65,7 @@ end
 xi=@(d)sign(d)*min(abs(d)/PAR.d0d,1)*Sgrad;
 
 fd=@(p)max(-1,min(1,p/0.2));
-fh=@(p)max(-1,min(1,p/5*0.05));
+fh=@(p)max(-1,min(1,p/0.05));
 
 %U=-Uh*sign(h_dot-eta)*IT+...
 %    sqrt(Um^2-Uh^2)*sign(d_dot+xi(d-d0))*IN;
