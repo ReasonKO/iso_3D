@@ -11,7 +11,9 @@ if (isfield(MAP_PAR,'MAP_H') && ishandle(MAP_PAR.MAP_H) && isequal('on',get(MAP_
         end
         if (mod(MAP_PAR.SAVEMAP.tick,MAP_PAR.SAVEMAP.freq)==0)
             saveas(MAP_PAR.MAP_H,[MAP_PAR.SAVEMAP.name,'/','map',int2str(MAP_PAR.SAVEMAP.tick),'.png']);
-            saveas(1001,[MAP_PAR.SAVEMAP.name,'/','layer',int2str(MAP_PAR.SAVEMAP.tick),'.png']);
+            if ishandle(1001)
+                saveas(1001,[MAP_PAR.SAVEMAP.name,'/','layer',int2str(MAP_PAR.SAVEMAP.tick),'.png']);
+            end
         end
         MAP_PAR.SAVEMAP.tick=MAP_PAR.SAVEMAP.tick+1;
     end

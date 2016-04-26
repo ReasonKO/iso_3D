@@ -26,8 +26,11 @@ if PAR.accumH
 else
     h=PAR.re_h(R);
 end
-
-d=re_D(R);
+if isempty(PAR.Dfunction)
+    d=re_D(R);
+else
+    d=PAR.Dfunction(R);
+end
 %% Ўум
 d=d+randn(1)*PAR.d_noise;
 h=h+randn(1)*PAR.h_noise;

@@ -29,7 +29,7 @@ PAR.Um=1;       %u с чертой
 PAR.Tin=15;     %время процесса IN
 PAR.WipeTime=[345,675];%[280,530];
 
-PAR.run_dynamic='exp_61_dyn';
+PAR.run_dynamic='exp_6_1_dyn';
 %% Поле
 
 [X,Y]=meshgrid(-100:100,-100:100);

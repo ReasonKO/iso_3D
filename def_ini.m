@@ -28,6 +28,7 @@ PAR.AngH=false;
 PAR.accumH_def=0;
 PAR.dHmax=1;    %Толщина сканируемого слоя
 
+PAR.Dfunction='';
 PAR.ExpName='';
 
 PAR.Hmax=15;    %H+
