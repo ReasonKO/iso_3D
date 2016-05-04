@@ -30,11 +30,11 @@ PAR.Um=1;       %u с чертой
 PAR.Tin=30;     %время процесса IN
 PAR.WipeAuto=1;
 PAR.dHmax=3;
-%PAR.run_dynamic='exp_71_dyn';
+PAR.run_dynamic='exp_8_2_dyn';
 %PAR.AngH=true;
 %PAR.accumH=true;
 %PAR.accumH_def=-20;
-PAR.ExpName='Anny';
+PAR.ExpName='Anny_2';
 PAR.Dfunction=@(R)exp_8_D(R);
 %PAR.re_h=@(R)
 %  20*mod(pi+atan2(R(1)*R(3),abs(R(3))),pi);
@@ -76,12 +76,14 @@ Z=Z*14-5;
 %Z=%R_*sin(ang2);
 figure(3000)
 clf
-axis([-50,50,-50,50,-50,50])
+axis([-100,50,-100,50,-50,100])
 hold on
 %mesh(X,Y,Z,'EdgeColor','none');
-mesh(X,Y,Z,'FaceAlpha',0.85);
+global VIZ_8_2
+[VIZ_8_1_field]=mesh(X,Y,Z,'FaceAlpha',0.85);
 colormap('gray');
-plot3(X,Y,Z,'.','MarkerSize',15)
+VIZ_8_1_field_2=plot3(X,Y,Z,'.','MarkerSize',15);
+VIZ_8_1_field_3=plot3(X(end),Y(end),0,'C-');
 %shading interp
 view([70,80,50]);
 
@@ -90,6 +92,11 @@ field.l=1;
 field.Xm={X};
 field.Ym={Y};
 field.Zm={Z};
+
+field.Xm_save=field.Xm;
+field.Ym_save=field.Ym;
+field.Zm_save=field.Zm;
+
 
 field.Xsize=[-50,50];
 field.Ysize=[-50,50];

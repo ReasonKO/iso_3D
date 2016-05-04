@@ -8,7 +8,8 @@ Rang_=[pi/2-0.15,-1.7]; %Угло отклонения от Z и угол отклонения от X;
 [~,~,I]=locI(Rang_);
 %% Параметры алгоритма и моделирования
 global Modul
-Modul.freq=1;  %Частота обновления картинки в секундах
+Modul.dt=10;
+Modul.freq=10;  %Частота обновления картинки в секундах
 Modul.Tend=700;%865;
 
 Modul.SaveExp=true;
@@ -18,7 +19,7 @@ PAR.d0=40^2;        %Приследуемое значение
 PAR.d0d=10^2;        %дельта в законе управления 5.5
 
 %PAR.Sgrad=0.6;    %Гамма в законе управления
-PAR.Sgrad=30;
+PAR.Sgrad=60;
 
 PAR.Hspeed=0.03;   %Эта*
 PAR.Hmax=45;    %H+
@@ -30,7 +31,7 @@ PAR.Um=1;       %u с чертой
 PAR.Tin=30;     %время процесса IN
 PAR.WipeAuto=1;
 PAR.dHmax=3;
-%PAR.run_dynamic='exp_71_dyn';
+PAR.run_dynamic='exp_8_2_dyn';
 %PAR.AngH=true;
 %PAR.accumH=true;
 %PAR.accumH_def=-20;
@@ -76,10 +77,11 @@ Z=Z*14-5;
 %Z=%R_*sin(ang2);
 figure(3000)
 clf
-axis([-50,50,-50,50,-50,50])
+axis([-150,50,-150,50,-50,100])
 hold on
 %mesh(X,Y,Z,'EdgeColor','none');
-mesh(X,Y,Z,'FaceAlpha',0.85);
+global VIZ_8_2
+[VIZ_8_1_field]=mesh(X,Y,Z,'FaceAlpha',0.85);
 colormap('gray');
 plot3(X,Y,Z,'.','MarkerSize',15)
 %shading interp
@@ -90,6 +92,11 @@ field.l=1;
 field.Xm={X};
 field.Ym={Y};
 field.Zm={Z};
+
+field.Xm_save=field.Xm;
+field.Ym_save=field.Ym;
+field.Zm_save=field.Zm;
+
 
 field.Xsize=[-50,50];
 field.Ysize=[-50,50];

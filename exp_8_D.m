@@ -7,13 +7,20 @@ z=R(3);
 
 Dmin=inf;
 %H=PAR.H/norm(PAR.H);
+Dmin=0;
+SizeSumm=0;
 k=1;
+for k=1:length(field.Zm)
     Z_k=field.Zm{k};
     X_k=field.Xm{k};
     Y_k=field.Ym{k};
-size_=size(Z_k,1)*size(Z_k,2);
-D_k=(X_k-x).^2+(Y_k-y).^2+(Z_k-z).^2;
-    Dmin=sum(sum(D_k))/size_ ;
+    size_=size(Z_k,1)*size(Z_k,2);
+    D_k=(X_k-x).^2+(Y_k-y).^2+(Z_k-z).^2;
+    D_layer=sum(sum(D_k));
+    SizeSumm=SizeSumm+size_;
+    Dmin=Dmin+D_layer;
+end
+Dmin=Dmin/SizeSumm;
 
 
 
@@ -47,7 +54,7 @@ D_k=(X_k-x).^2+(Y_k-y).^2+(Z_k-z).^2;
 global fig
 if ~isfield(fig,'trace')
     figure(3000);
-    fig.trace=plot3(x,y,z,'B','linewidth',3);  
+    fig.trace=plot3(x,y,z,'B','linewidth',2);  
 end
 
 addPlotData(fig.trace,x,y,z);
