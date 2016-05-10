@@ -8,8 +8,7 @@ Rang_=[pi/2-0.15,-1.7]; %Угло отклонения от Z и угол отклонения от X;
 [~,~,I]=locI(Rang_);
 %% Параметры алгоритма и моделирования
 global Modul
-Modul.dt=10;
-Modul.freq=10;  %Частота обновления картинки в секундах
+Modul.freq=1;  %Частота обновления картинки в секундах
 Modul.Tend=700;%865;
 
 Modul.SaveExp=true;
@@ -19,7 +18,7 @@ PAR.d0=40^2;        %Приследуемое значение
 PAR.d0d=10^2;        %дельта в законе управления 5.5
 
 %PAR.Sgrad=0.6;    %Гамма в законе управления
-PAR.Sgrad=60;
+PAR.Sgrad=30;
 
 PAR.Hspeed=0.03;   %Эта*
 PAR.Hmax=45;    %H+
@@ -35,18 +34,13 @@ PAR.run_dynamic='exp_8_2_dyn';
 %PAR.AngH=true;
 %PAR.accumH=true;
 %PAR.accumH_def=-20;
-PAR.ExpName='Anny';
+PAR.ExpName='Anny_2';
 PAR.Dfunction=@(R)exp_8_D(R);
-%PAR.re_h=@(R)
-%  20*mod(pi+atan2(R(1)*R(3),abs(R(3))),pi);
 
-% PAR.re_h=@(R)...
-%   20*mod(pi+atan2(...
-% cross(R,[0,1,0])*[0,0,1]'*...
-% sign(cross(R,[0,1,0])*[1,0,0]'),...
-% abs(cross(R,[0,1,0])*[1,0,0]')),pi);
-
-%.sin(atan2(R(1),R(2)))*cos(atan2(R(3),sqrt(R(1)^2+R(2)^2))+pi/2),sin(atan2(R(3),sqrt(R(1)^2+R(2)^2))+pi/2));
+%% Дизайн 
+PAR.COLOR.R=[0,0,0];
+PAR.COLOR.RL=[0,0,0];
+PAR.COLOR.RH=[0,0,1];
 %% Поле
 
 vt=@(t)1;%(0.2+((sin((abs(t)*2-1)*pi/2))/2+0.5)*0.8).*(abs(t)<1)+1*(abs(t)>=1);
@@ -77,13 +71,14 @@ Z=Z*14-5;
 %Z=%R_*sin(ang2);
 figure(3000)
 clf
-axis([-150,50,-150,50,-50,100])
+axis([-100,50,-100,50,-50,100])
 hold on
 %mesh(X,Y,Z,'EdgeColor','none');
 global VIZ_8_2
-[VIZ_8_1_field]=mesh(X,Y,Z,'FaceAlpha',0.85);
+^[VIZ_8_1_field]=mesh(X,Y,Z,'FaceAlpha',0.85);
 colormap('gray');
-plot3(X,Y,Z,'.','MarkerSize',15)
+VIZ_8_1_field_2=plot3(X,Y,Z,'.','MarkerSize',15);
+VIZ_8_1_field_3=plot3(X(end),Y(end),0,'C-');
 %shading interp
 view([70,80,50]);
 

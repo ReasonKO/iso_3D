@@ -48,6 +48,10 @@ PAR.WipeTime=0;
 PAR.WipeAuto=0;
 PAR.Smod_old=0;
 PAR.viz_graph=true;%false;
+%% Дизайн
+PAR.COLOR.R=[0,1,0]; %цвет преследователя
+PAR.COLOR.RL=[0,1,0]; %Цвет направляющий
+PAR.COLOR.RH=[0,0,1]; %Цвет вектора H
 %% ПОЛЕ-----------
 
 RB=50;

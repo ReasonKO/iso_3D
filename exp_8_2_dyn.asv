@@ -1,9 +1,0 @@
-global Modul
-t=Modul.T;
-%-(cos(t/500)*2+cos(t/100)-3)*10,(sin(t/500)*2+sin(t/100))*10)
-global field
-field.Xm={field.Xm_save{1}-(sin(t/500)*3+sin(t/100))*30};
-field.Ym={field.Ym_save{1}+(cos(t/500)*3+cos(t/100)-4)*30};
-setPlotData(VIZ_8_1_field,field.Xm{1},field.Ym{1},field.Zm{1});
-
-

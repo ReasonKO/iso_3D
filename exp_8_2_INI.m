@@ -22,7 +22,7 @@ PAR.Sgrad=30;
 
 PAR.Hspeed=0.03;   %Эта*
 PAR.Hmax=45;    %H+
-PAR.Hmin=-45;    %H-
+PAR.Hmin=0;    %H-
 PAR.USpeed=5;   %Угловая скорость
 PAR.VSpeed=10;  %Линейная скорость
 PAR.Uh=0.1;    %u_h с чертой
@@ -36,16 +36,11 @@ PAR.run_dynamic='exp_8_2_dyn';
 %PAR.accumH_def=-20;
 PAR.ExpName='Anny_2';
 PAR.Dfunction=@(R)exp_8_D(R);
-%PAR.re_h=@(R)
-%  20*mod(pi+atan2(R(1)*R(3),abs(R(3))),pi);
 
-% PAR.re_h=@(R)...
-%   20*mod(pi+atan2(...
-% cross(R,[0,1,0])*[0,0,1]'*...
-% sign(cross(R,[0,1,0])*[1,0,0]'),...
-% abs(cross(R,[0,1,0])*[1,0,0]')),pi);
-
-%.sin(atan2(R(1),R(2)))*cos(atan2(R(3),sqrt(R(1)^2+R(2)^2))+pi/2),sin(atan2(R(3),sqrt(R(1)^2+R(2)^2))+pi/2));
+%% Дизайн 
+PAR.COLOR.R=[0,0,0];
+PAR.COLOR.RL=[0,0,0];
+PAR.COLOR.RH=[0,0,1];
 %% Поле
 
 vt=@(t)1;%(0.2+((sin((abs(t)*2-1)*pi/2))/2+0.5)*0.8).*(abs(t)<1)+1*(abs(t)>=1);
@@ -80,10 +75,10 @@ axis([-100,50,-100,50,-50,100])
 hold on
 %mesh(X,Y,Z,'EdgeColor','none');
 global VIZ_8_2
-[VIZ_8_1_field]=mesh(X,Y,Z,'FaceAlpha',0.85);
+[VIZ_8_2.field]=mesh(X,Y,Z,'FaceAlpha',0.55,'EdgeColor','none');
 colormap('gray');
-VIZ_8_1_field_2=plot3(X,Y,Z,'.','MarkerSize',15);
-VIZ_8_1_field_3=plot3(X(end),Y(end),0,'C-');
+VIZ_8_2.field_2=plot3(X,Y,Z,'.','Color',[0.7,0,0],'MarkerSize',15);
+VIZ_8_2.field_3=plot3(X(end),Y(end),0,'R-');
 %shading interp
 view([70,80,50]);
 

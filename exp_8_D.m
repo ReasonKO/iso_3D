@@ -57,7 +57,18 @@ if ~isfield(fig,'trace')
     fig.trace=plot3(x,y,z,'B','linewidth',2);  
 end
 
+
 addPlotData(fig.trace,x,y,z);
+if PAR.WipeAuto
+    if PAR.Smod~=PAR.Smod_old
+        setPlotData(fig.trace,[],[],[]);
+    end
+    PAR.Smod_old=PAR.Smod;
+else 
+if sum(abs(PAR.WipeTime-Modul.T)<Modul.dt)
+    setPlotData(fig.trace,[],[],[]);
+end 
+end
 return
 
 
