@@ -82,7 +82,8 @@ field.Zsize=[-50,50];
     Z2=(R_+5)*cos(ang1);
 % 
 % for i=1:field.l
-surf(X2,Y2,Z2,'FaceAlpha',0.55,'EdgeColor','none')
+global VIZ_8_2
+[VIZ_8_2.field]=surf(X2,Y2,Z2,'FaceAlpha',0.55,'EdgeColor','none');
 colormap('autumn');
 % [~,k2]=mesh(X2,Y2,Z2,'R');
 % set(k2,'LineWidth',2);
