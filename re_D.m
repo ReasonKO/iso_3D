@@ -13,7 +13,7 @@ H=PAR.H/norm(PAR.H);
 
 layerln=@(A,B,C,s)abs((A-s(1))*H(1)+(B-s(2))*H(2)+(C-s(3))*H(3));
 layerf=@(A,B,C,s)(abs((A-s(1))*H(1)+(B-s(2))*H(2)+(C-s(3))*H(3))<PAR.dHmax);
-%% перебор слоев
+%% пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 for k=1:field.l
     Z_k=field.Zm{k};
     X_k=field.Xm{k};
@@ -38,7 +38,7 @@ for k=1:field.l
         Dmin=d_k;
     end
 end
-%% Сбор информации с лучшего слоя
+%% пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 Z=field.Zm{Kopt};
 X=field.Xm{Kopt};
 Y=field.Ym{Kopt};
@@ -63,14 +63,14 @@ if (isinf(d))
     fprintf('WARNING: d=inf!\n');
     return
 end
-%% графика ----------------------------------------------------------------
+%% пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ----------------------------------------------------------------
 global fig
 if ~isfield(fig,'trace')
     figure(3000);
     if (PAR.green_iso)
         fig.layer3=plot3(Xz,Yz,Zz,'G.');      
     end
-    fig.trace=plot3(Xz(Ind),Yz(Ind),Zz(Ind),'B','linewidth',3);  
+    fig.trace=plot3(R(1),R(2),R(3),'B','linewidth',3);  
 end
 
 if PAR.WipeAuto
@@ -83,7 +83,7 @@ if sum(abs(PAR.WipeTime-Modul.T)<Modul.dt)
     setPlotData(fig.trace,[],[],[]);
 end 
 end
-addPlotData(fig.trace,Xz(Ind),Yz(Ind),Zz(Ind));
+addPlotData(fig.trace,R(1),R(2),R(3));
 if PAR.green_iso
     set(fig.layer3,'xdata',Xz,'ydata',Yz,'zdata',Zz);
 end
@@ -99,7 +99,7 @@ if ~isfield(fig,'layer') || ~ishandle(fig.layer.figH)
     end
     %fig.layer.field3=surf(X_layer,Y_layer,zeros(size(Z_layer))); 
     fig.layer.robot=plot(0,0,'R*');
-    fig.layer.line=plot(0,0,'R-');
+    %fig.layer.line=plot(0,0,'R-');
 end
 
 if isequal('on',get(fig.layer.figH,'Visible'))
@@ -113,32 +113,32 @@ if isequal('on',get(fig.layer.figH,'Visible'))
     end
     %set(fig.layer.field3,'xdata',X_layer,'ydata',Y_layer,'zdata',Z_layer-z*ones(size(Z_layer)));    
     set(fig.layer.robot,'xdata',x,'ydata',y);
-    set(fig.layer.line,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
+    %set(fig.layer.line,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
     %UpPlotData(fig.trace2,x,y);
 end
 
-if Modul.T<=PAR.Tin
+%if Modul.T<=PAR.Tin
 if ~isfield(fig,'layer2') || ~ishandle(fig.layer2.figH)
     fig.layer2.figH=figure(1002);
     clf
     axis([field.Xsize,field.Ysize])
     hold on
-    title('layer t<Tin');
+    %title('layer t<Tin');
     fig.trace3=plot(x,y,'B','linewidth',1.5);
     fig.layer2.field2=plot(NaN,NaN,'K.');
     %fig.layer2.field3=surf(X_layer,Y_layer,zeros(size(Z_layer)));
     fig.layer2.robot2=plot(0,0,'R*','linewidth',2);
-    fig.layer2.line2=plot(0,0,'R-');
+    %fig.layer2.line2=plot(0,0,'R-');
 end
 if isequal('on',get(fig.layer2.figH,'Visible'))
     addPlotData(fig.layer2.field2,Xz(Ind),Yz(Ind));
     %set(fig.layer2.field2,'xdata',Xz,'ydata',Yz);
     %set(fig.layer2.field3,'xdata',X_layer,'ydata',Y_layer,'zdata',Z_layer-z*ones(size(Z_layer)));
     set(fig.layer2.robot2,'xdata',x,'ydata',y);
-    set(fig.layer2.line2,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
+    %set(fig.layer2.line2,'xdata',[x,Xz(Ind)],'ydata',[y,Yz(Ind)]);
     addPlotData(fig.trace3,x,y);
 end    
-end
+%end
 
 
 
